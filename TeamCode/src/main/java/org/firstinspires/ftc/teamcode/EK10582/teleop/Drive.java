@@ -25,9 +25,11 @@ public class Drive extends EKLinear {
             }
 
 
-            robot.shooter.activeShoot=driverStation.gamepad2.b;
+//            robot.shooter.activeShoot=driverStation.gamepad2.b;
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
+
+            robot.transfer.activeTransfer = driverStation.gamepad2.y;
 
             telemetry.addData("Reset: ", driverStation.getReset());
             robot.update();

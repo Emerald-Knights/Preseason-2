@@ -30,15 +30,18 @@ public class Robot {
 
     public DcMotorEx leftFront, leftBack, rightFront, rightBack, leftShooter, rightShooter, intakeMotor;
 
+    public CRServo transferServo;
+
 
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
     public MecanumDrive mecanumDrive = new MecanumDrive();
-    public Shooter shooter = new Shooter();
+    //public Shooter shooter = new Shooter();
     public Intake intake = new Intake();
+    public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive,shooter,intake);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive,shooter,intake);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -58,13 +61,15 @@ public class Robot {
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-//
-        leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
-        rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
 
-        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+       // leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
+//        rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
 
-//
+//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
+//        transferServo = hardwareMap.get(CRServo.class,"transferServo");
+
+
 
         //When the motor power is set to zero it brakes instead of coasting
         leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
