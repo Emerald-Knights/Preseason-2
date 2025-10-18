@@ -1,49 +1,3 @@
-<<<<<<< HEAD
-//package org.firstinspires.ftc.teamcode.EK10582.subsystem;
-//
-//import com.qualcomm.robotcore.util.ElapsedTime;
-//
-//import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
-//import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants.ShooterStates;
-//
-//import org.firstinspires.ftc.robotcore.external.Telemetry;
-//
-//public class Shooter extends Subsystem {
-//
-//    private double motorSpeed = 0;
-//    public boolean activeShoot;
-//
-//    @Override
-//    public void init(boolean isAuton){
-//        activeShoot=false;
-//    }
-//    @Override
-//    public void update(boolean isAuton){
-//        if(activeShoot) {
-//            Robot.getInstance().rightShooter.setPower(1);
-//            Robot.getInstance().leftShooter.setPower(-1);
-//        }
-//        else{
-//            Robot.getInstance().rightShooter.setPower(0);
-//            Robot.getInstance().leftShooter.setPower(0);
-//        }
-//
-//
-//
-//
-//    }
-//    @Override
-//    public void stop(){
-//
-//    }
-//    @Override
-//    public void printToTelemetry(Telemetry telemetry){
-//        telemetry.addData("Shooter State", activeShoot);
-//
-//    }
-//
-//}
-=======
 package org.firstinspires.ftc.teamcode.EK10582.subsystem;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -55,25 +9,25 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Shooter extends Subsystem {
 
-    private double motorSpeed = 0;
-    public boolean activeShoot;
+    public boolean dump = false;
 
-    public SubsystemConstants.ShooterStates currentState = SubsystemConstants.ShooterStates.IDLE;
+    public SubsystemConstants.ShooterStates currentState = SubsystemConstants.ShooterStates.DOWN;
 
     @Override
     public void init(boolean isAuton){
-        activeShoot=false;
-        currentState = SubsystemConstants.ShooterStates.IDLE;
+        Robot.getInstance().shooterServo.setPosition(0);
+        dump=false;
+        currentState = SubsystemConstants.ShooterStates.DOWN;
     }
     @Override
     public void update(boolean isAuton){
-        if(activeShoot) {
-            Robot.getInstance().rightShooter.setPower(0.8);
-            Robot.getInstance().leftShooter.setPower(-0.8);
+        if(dump) {
+            Robot.getInstance().shooterServo.setPosition(0.79);
+            currentState = SubsystemConstants.ShooterStates.UP;
         }
         else{
-            Robot.getInstance().rightShooter.setPower(0);
-            Robot.getInstance().leftShooter.setPower(0);
+            Robot.getInstance().shooterServo.setPosition(0); //down
+            currentState = SubsystemConstants.ShooterStates.DOWN;
         }
 
 
@@ -86,9 +40,9 @@ public class Shooter extends Subsystem {
     }
     @Override
     public void printToTelemetry(Telemetry telemetry){
-        telemetry.addData("Shooter State", activeShoot);
+        telemetry.addData("Shooter State", currentState);
 
     }
 
 }
->>>>>>> 19f098fbc5db1c9f04890c9024bdaad4b1870738
+

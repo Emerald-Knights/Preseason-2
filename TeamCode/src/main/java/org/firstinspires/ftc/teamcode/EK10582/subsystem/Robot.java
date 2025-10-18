@@ -28,20 +28,22 @@ public class Robot {
     HardwareMap hardwareMap;
     EKLinear linearOpMode;
 
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, leftShooter, rightShooter, intakeMotor;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor;
+
+    public Servo shooterServo;
 
     public CRServo transferServo;
-
-
+    public WebcamName camera;
+    public AprilTags aprilTags = new AprilTags();
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
     public MecanumDrive mecanumDrive = new MecanumDrive();
-    //public Shooter shooter = new Shooter();
+    public Shooter shooter = new Shooter();
     public Intake intake = new Intake();
     public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive,intake,shooter);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive,intake,shooter);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -62,12 +64,14 @@ public class Robot {
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
-       // leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
-//        rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
+        shooterServo = hardwareMap.get(Servo.class, "shooterServo");
 
-//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 
 //        transferServo = hardwareMap.get(CRServo.class,"transferServo");
+
+//        camera = hardwareMap.get(WebcamName.class, "New Camera");
 
 
 

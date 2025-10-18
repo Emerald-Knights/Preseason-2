@@ -25,7 +25,7 @@ public class Drive extends EKLinear {
             }
 
 
-//            robot.shooter.activeShoot=driverStation.gamepad2.b;
+            robot.shooter.dump=driverStation.gamepad2.b;
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
 
