@@ -42,8 +42,8 @@ public class Robot {
     public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive,intake,shooter);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive,intake,shooter);
+    public List<Subsystem> subsystems = Arrays.asList(aprilTags);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(aprilTags);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -59,30 +59,30 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         this.linearOpMode = (EKLinear)linearOpMode;
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-
-        shooterServo = hardwareMap.get(Servo.class, "shooterServo");
-
-
-        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+//        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+//        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+//        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+//        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+//
+//        shooterServo = hardwareMap.get(Servo.class, "shooterServo");
+//
+//
+//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 
 //        transferServo = hardwareMap.get(CRServo.class,"transferServo");
 
-//        camera = hardwareMap.get(WebcamName.class, "New Camera");
+        camera = hardwareMap.get(WebcamName.class, "camera");
 
 
 
         //When the motor power is set to zero it brakes instead of coasting
-        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         for(Subsystem subsystem : subsystems) {

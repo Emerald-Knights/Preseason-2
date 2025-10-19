@@ -7,6 +7,8 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
+//.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+
 import java.util.List;
 
 public class AprilTags extends Subsystem {
@@ -42,7 +44,7 @@ public class AprilTags extends Subsystem {
 
         //TODO: disabling camera viewport
         builder.setLiveViewContainerId(0);
-        builder.enableLiveView(false);
+        builder.enableLiveView(true);
 
         // Set the camera (webcam vs. built-in RC phone camera).
         builder.setCamera(Robot.getInstance().camera);

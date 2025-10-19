@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.EK10582.test;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
 
 @TeleOp(name="April Tag Tester")
-@Disabled
+
 public class AprilTagTester extends EKLinear {
     @Override
     public void runOpMode() throws InterruptedException {
