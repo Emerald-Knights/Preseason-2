@@ -25,7 +25,9 @@ public class Drive extends EKLinear {
             }
 
 
-            robot.shooter.dump=driverStation.gamepad2.b;
+            robot.catapult.catapultUpButton=driverStation.gamepad2.right_bumper;
+
+            robot.catapult.catapultDownButton=driverStation.gamepad2.right_trigger > 0.2;
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
 

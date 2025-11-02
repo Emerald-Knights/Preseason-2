@@ -1,14 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
-import org.firstinspires.ftc.teamcode.EK10582.subsystem.Robot;
 //@Disabled
 @TeleOp(name="Motor Tester")
 public class MotorTester extends LinearOpMode {
@@ -18,12 +13,12 @@ public class MotorTester extends LinearOpMode {
         waitForStart();
 
         DcMotorEx motor = hardwareMap.get(DcMotorEx.class, "lt");
-        DcMotorEx motor2 = hardwareMap.get(DcMotorEx.class, "rightShooter");
+//        DcMotorEx motor2 = hardwareMap.get(DcMotorEx.class, "rightShooter");
 
         while(opModeIsActive()) {
 
             motor.setPower(gamepad1.left_trigger - gamepad1.right_trigger);
-            motor2.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
+//            motor2.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
 
             telemetry.addData("motor speed: ", gamepad1.right_trigger-gamepad1.left_trigger);
 //            telemetry.addData("position: ", motor.getCurrentPosition());

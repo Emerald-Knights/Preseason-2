@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
-import org.firstinspires.ftc.teamcode.EK10582.subsystem.Robot;
 
 @TeleOp(name="Servo Tester")
 public class ServoTester extends EKLinear {

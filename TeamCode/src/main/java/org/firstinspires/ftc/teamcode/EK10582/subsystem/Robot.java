@@ -1,21 +1,16 @@
 package org.firstinspires.ftc.teamcode.EK10582.subsystem;
 
-import com.qualcomm.hardware.bosch.BHI260IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +23,7 @@ public class Robot {
     HardwareMap hardwareMap;
     EKLinear linearOpMode;
 
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, catapult1, catapult2;
 
     public Servo shooterServo;
 
@@ -37,13 +32,13 @@ public class Robot {
     public AprilTags aprilTags = new AprilTags();
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
     public MecanumDrive mecanumDrive = new MecanumDrive();
-    public Shooter shooter = new Shooter();
+    public Catapult catapult = new Catapult();
     public Intake intake = new Intake();
     public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(aprilTags);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(aprilTags);
+    public List<Subsystem> subsystems = Arrays.asList(intake,catapult);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(intake,catapult);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -63,26 +58,34 @@ public class Robot {
 //        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
 //        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
 //        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-//
-//        shooterServo = hardwareMap.get(Servo.class, "shooterServo");
-//
-//
-//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
+
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+
+        catapult1 = hardwareMap.get(DcMotorEx.class, "catapult1");
+        catapult2 = hardwareMap.get(DcMotorEx.class, "catapult2");
+
 
 //        transferServo = hardwareMap.get(CRServo.class,"transferServo");
+//
+//        camera = hardwareMap.get(WebcamName.class, "camera");
 
-        camera = hardwareMap.get(WebcamName.class, "camera");
 
 
-
-        //When the motor power is set to zero it brakes instead of coasting
+//        When the motor power is set to zero it brakes instead of coasting
 //        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 //        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 //        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 //        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
+
+        catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
 //        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 //        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         for(Subsystem subsystem : subsystems) {
