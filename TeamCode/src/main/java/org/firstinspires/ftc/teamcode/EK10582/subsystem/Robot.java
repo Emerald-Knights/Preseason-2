@@ -54,10 +54,10 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         this.linearOpMode = (EKLinear)linearOpMode;
 
-//        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-//        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-//        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-//        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
 
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
@@ -73,17 +73,17 @@ public class Robot {
 
 
 //        When the motor power is set to zero it brakes instead of coasting
-//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-//        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
 
