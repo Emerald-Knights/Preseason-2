@@ -17,7 +17,7 @@ public class Constants {
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
     public static MecanumConstants driveConstants = new MecanumConstants()
-            .maxPower(1) //will change to 0.8
+            .maxPower(0.8) //will change to 0.8
             .rightFrontMotorName("rightFront")
             .rightRearMotorName("rightBack")
             .leftRearMotorName("leftBack")
@@ -42,8 +42,8 @@ public class Constants {
             .leftPodY(6.5)
             .rightPodY(-6.5)
             .strafePodX(-6)
-            .leftEncoder_HardwareMapName("rightFront")
-            .rightEncoder_HardwareMapName("leftBack")
+            .leftEncoder_HardwareMapName("leftBack")
+            .rightEncoder_HardwareMapName("rightFront")
             .strafeEncoder_HardwareMapName("rightBack")
             .leftEncoderDirection(Encoder.REVERSE)
             .rightEncoderDirection(Encoder.REVERSE)
