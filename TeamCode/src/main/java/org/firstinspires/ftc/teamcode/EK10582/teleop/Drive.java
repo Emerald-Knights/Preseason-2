@@ -25,15 +25,14 @@ public class Drive extends EKLinear {
             }
 
 
-            robot.catapult.catapultUpButton=driverStation.gamepad2.right_bumper;
-
-            robot.catapult.catapultDownButton=driverStation.gamepad2.right_trigger > 0.2;
+            robot.catapult.catapultUpButton=driverStation.gamepad2.b;
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
 
             robot.transfer.activeTransfer = driverStation.gamepad2.y;
 
             telemetry.addData("Reset: ", driverStation.getReset());
+            telemetry.addData("rawRB", gamepad2.right_bumper);
             robot.update();
 
         }

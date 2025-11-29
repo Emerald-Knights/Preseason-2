@@ -23,8 +23,8 @@ public class OdoTester extends LinearOpMode {
     public void runOpMode() {
 
         leftEncoder = hardwareMap.get(DcMotorEx.class, "odo1");
-        rightEncoder = hardwareMap.get(DcMotorEx.class, "odo2");
-        frontEncoder = hardwareMap.get(DcMotorEx.class, "odo3");
+//        rightEncoder = hardwareMap.get(DcMotorEx.class, "odo2");
+//        frontEncoder = hardwareMap.get(DcMotorEx.class, "odo3");
 
 //        leftEncoder.setDirection(Encoder.REVERSE);
 //        rightEncoder.setDirection(Encoder.REVERSE);
@@ -40,9 +40,9 @@ public class OdoTester extends LinearOpMode {
 //            currentRight += rightEncoder.getDeltaPosition();
 
 
-            telemetry.addData("backOdo", frontEncoder.getCurrentPosition());
+//            telemetry.addData("backOdo", frontEncoder.getCurrentPosition());
             telemetry.addData("rightOdo", leftEncoder.getCurrentPosition());
-            telemetry.addData("leftOdo", rightEncoder.getCurrentPosition());
+//            telemetry.addData("leftOdo", rightEncoder.getCurrentPosition());
             telemetry.update();
         }
     }
