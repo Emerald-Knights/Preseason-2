@@ -5,20 +5,24 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Intake extends Subsystem{
 
     public boolean activeIntake;
+    public boolean reverseIntake;
 
     public void init(boolean isAuton){
         activeIntake=false;
+        reverseIntake=false;
 
     }
-    public void update(boolean isAuton){
-        if(activeIntake) {
+    public void update(boolean isAuton) {
+        if (activeIntake) {
             Robot.getInstance().intakeMotor.setPower(0.8);
-        }
-        else{
+        } else if(reverseIntake) {
+            Robot.getInstance().intakeMotor.setPower(-0.8);
+        } else {
             Robot.getInstance().intakeMotor.setPower(0);
         }
-
     }
+
+
 
     public void stop(){
 

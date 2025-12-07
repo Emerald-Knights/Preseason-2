@@ -11,7 +11,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
+import org.firstinspires.ftc.teamcode.EK10582.auton.action.Action;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,12 +39,12 @@ public class Robot {
     public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(catapult);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(catapult);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive,catapult,intake);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive,catapult,intake);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
-
+    private ArrayList<Action> actions = new ArrayList<Action>();
 
     //Resets Cycle timer whenever the cycle finishes
     public ElapsedTime cycleTimer = new ElapsedTime();
@@ -54,13 +56,13 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         this.linearOpMode = (EKLinear)linearOpMode;
 
-//        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-//        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-//        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-//        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-//
-//
-//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+
+
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 
         catapult1 = hardwareMap.get(DcMotorEx.class, "catapult1");
         catapult2 = hardwareMap.get(DcMotorEx.class, "catapult2");
@@ -73,17 +75,17 @@ public class Robot {
 
 
 ////        When the motor power is set to zero it brakes instead of coasting
-//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-//        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -103,8 +105,20 @@ public class Robot {
         return robot;
     }
     //Adds actions to the list of active actions so they can be updated
+    public void addAction(Action action) {
+        action.start();
+        actions.add(action);
+    }
+    //Returns the amount of running actions
+    public int getActionLength(){
+        return actions.size();
+    }
 
-
+    public void clearActions() {
+        while (!actions.isEmpty()) {
+            actions.remove(0);
+        }
+    }
     public void update() {
         //Update every single subsystem in the subsystems array initialized earlier
         for(Subsystem subsystem : subsystems) {
