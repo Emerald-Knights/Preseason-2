@@ -27,7 +27,7 @@ public class Robot {
 
     public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, catapult1, catapult2;
 
-    public Servo shooterServo;
+    public Servo shooterServo, inServo;
 
     public CRServo transferServo;
     public WebcamName camera;

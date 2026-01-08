@@ -14,9 +14,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(8.63)
-            .forwardZeroPowerAcceleration(-50.495225125)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0))
-            .lateralZeroPowerAcceleration(-96.1887968);
+            .forwardZeroPowerAcceleration(-55.24064269)
+            .translationalPIDFCoefficients(new PIDFCoefficients(0, 0, 0, 0))
+            .lateralZeroPowerAcceleration(-77.76889601);
 
 
 
@@ -32,8 +32,8 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .xVelocity(61.570842625)
-            .yVelocity(43.54079658);
+            .xVelocity(67.45299422)
+            .yVelocity(50.00453258);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
@@ -45,15 +45,15 @@ public class Constants {
     }
 
     public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
-            .forwardTicksToInches(.001989436789)
-            .strafeTicksToInches(-.001989436789)
-            .turnTicksToInches(.001989436789)
+            .forwardTicksToInches(0.00198962)
+            .strafeTicksToInches(-0.00205662666)
+            .turnTicksToInches(0.00190961)
             .leftPodY(6.13)
             .rightPodY(-6.13)
             .strafePodX(-4.86)
-            .leftEncoder_HardwareMapName("rightBack")
-            .rightEncoder_HardwareMapName("rightFront")
-            .strafeEncoder_HardwareMapName("leftBack")
+            .leftEncoder_HardwareMapName("leftBack")
+            .rightEncoder_HardwareMapName("rightBack")
+            .strafeEncoder_HardwareMapName("rightFront")
             .leftEncoderDirection(Encoder.FORWARD)
             .rightEncoderDirection(Encoder.REVERSE)
             .strafeEncoderDirection(Encoder.FORWARD);

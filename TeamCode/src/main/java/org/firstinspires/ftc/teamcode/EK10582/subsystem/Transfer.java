@@ -11,11 +11,15 @@ public class Transfer extends Subsystem{
     }
     public void update(boolean isAuton){
         if(activeTransfer){
+            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
             Robot.getInstance().transferServo.setPower(1);
         }
         else{
-            Robot.getInstance().transferServo.setPower(0.5);
+            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+            Robot.getInstance().transferServo.setPower(0);
         }
+
+
     }
 
     public void stop(){

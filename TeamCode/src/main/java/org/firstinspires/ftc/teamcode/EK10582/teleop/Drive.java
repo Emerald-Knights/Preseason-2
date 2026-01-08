@@ -41,6 +41,8 @@ public class Drive extends EKLinear {
 
             robot.transfer.activeTransfer = driverStation.gamepad2.y;
 
+
+
             telemetry.addData("Reset: ", driverStation.getReset());
             telemetry.addData("rawRB", gamepad2.right_bumper);
             robot.update();
