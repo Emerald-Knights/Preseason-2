@@ -14,7 +14,7 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.EK10582.auton.action.DownCatapult;
 import org.firstinspires.ftc.teamcode.EK10582.auton.action.UpCatapult;
-import org.firstinspires.ftc.teamcode.EK10582.auton.actions.AutonIntake;
+import org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonIntake;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants;
 
 @Autonomous(name = "BlueFar", group = "Examples")
@@ -108,7 +108,7 @@ public class BlueFar extends AutonBase {
                 break;
             case 2:
                 if (robot.getActionLength() == 0) {
-                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.actions.AutonIntake());
+                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonIntake());
                     follower.followPath(intakeTop, true);
                     setPathState(3);
                 }
@@ -138,7 +138,7 @@ public class BlueFar extends AutonBase {
 
             case 6:
                 if (robot.getActionLength() == 0) {
-                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.actions.AutonIntake());
+                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonIntake());
                     follower.followPath(intakeMiddle, true);
                     setPathState(7);
                 }
@@ -168,7 +168,7 @@ public class BlueFar extends AutonBase {
 
             case 10:
                 if (robot.getActionLength() == 0) {
-                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.actions.AutonIntake());
+                    robot.addAction(new org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonIntake());
                     follower.followPath(intakeBottom, true);
                     setPathState(11);
                 }

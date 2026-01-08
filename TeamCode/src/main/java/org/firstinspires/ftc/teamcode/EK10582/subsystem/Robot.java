@@ -39,8 +39,8 @@ public class Robot {
     public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive,catapult,intake);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive,catapult,intake);
+    public List<Subsystem> subsystems = Arrays.asList(transfer);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(transfer);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -56,38 +56,40 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         this.linearOpMode = (EKLinear)linearOpMode;
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+//        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+//        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+//        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+//        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
 
-        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+//
+//        catapult1 = hardwareMap.get(DcMotorEx.class, "catapult1");
+//        catapult2 = hardwareMap.get(DcMotorEx.class, "catapult2");
 
-        catapult1 = hardwareMap.get(DcMotorEx.class, "catapult1");
-        catapult2 = hardwareMap.get(DcMotorEx.class, "catapult2");
 
+        transferServo = hardwareMap.get(CRServo.class,"transferServo");
+        inServo = hardwareMap.get(Servo.class, "inServo");
 
-//        transferServo = hardwareMap.get(CRServo.class,"transferServo");
 //
 //        camera = hardwareMap.get(WebcamName.class, "camera");
 
 
 
-////        When the motor power is set to zero it brakes instead of coasting
-        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-        catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
+//////        When the motor power is set to zero it brakes instead of coasting
+//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//        catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//
+//
+//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+//
+//        catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         for(Subsystem subsystem : subsystems) {

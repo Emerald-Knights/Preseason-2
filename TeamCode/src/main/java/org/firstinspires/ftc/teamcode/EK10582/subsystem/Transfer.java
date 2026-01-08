@@ -9,6 +9,7 @@ public class Transfer extends Subsystem{
     public void init(boolean isAuton){
         activeTransfer = false;
     }
+
     public void update(boolean isAuton){
         if(activeTransfer){
             Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
