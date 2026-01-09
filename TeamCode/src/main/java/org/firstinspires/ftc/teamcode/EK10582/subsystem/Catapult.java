@@ -14,6 +14,8 @@ public class Catapult extends Subsystem {
 
     private boolean hasRunOnce = false;
 
+    public SubsystemConstants.CatapultStates currentState;
+
 
 
     ElapsedTime catapultTime = new ElapsedTime();
@@ -21,7 +23,6 @@ public class Catapult extends Subsystem {
 
 
 
-    public SubsystemConstants.CatapultStates currentState = SubsystemConstants.CatapultStates.DOWN;
 
     @Override
     public void init(boolean isAuton){

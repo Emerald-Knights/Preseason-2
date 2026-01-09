@@ -1,11 +1,19 @@
 package org.firstinspires.ftc.teamcode.EK10582.subsystem;
+
+import static org.firstinspires.ftc.robotcore.external.navigation.Orientation.getOrientation;
+
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.EK10582.subsystem.Subsystem;
+
+import com.qualcomm.robotcore.hardware.IMU;
 
 //.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
 
@@ -13,62 +21,29 @@ import java.util.List;
 
 public class AprilTags extends Subsystem {
 
-    boolean aprilTagsEnabled;
-
-    private AprilTagProcessor aprilTag;
-    public float decimation;
-
-    private VisionPortal visionPortal;
-    List<AprilTagDetection> currentDetections;
+    private LLResult llResult;
+    private Pose3D botPose;
 
     @Override
     public void init (boolean auton) {
-
-        aprilTagsEnabled = true;
-
-        // Create the AprilTag processor.
-        aprilTag = new AprilTagProcessor.Builder()
-
-                // Vision processor default settings
-                .setDrawAxes(true)
-                .setDrawCubeProjection(false)
-                .setDrawTagOutline(true)
-                .setTagLibrary(AprilTagGameDatabase.getIntoTheDeepTagLibrary())
-                .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
-                .build();
-
-        aprilTag.setDecimation(3);
-
-        // Create the vision portal by using a builder.
-        VisionPortal.Builder builder = new VisionPortal.Builder();
-
-        //TODO: disabling camera viewport
-        builder.setLiveViewContainerId(0);
-        builder.enableLiveView(true);
-
-        // Set the camera (webcam vs. built-in RC phone camera).
-        builder.setCamera(Robot.getInstance().camera);
-
-        // Set and enable the processor.
-        builder.addProcessor(aprilTag);
-
-        // Build the Vision Portal, using the above settings.
-        visionPortal = builder.build();
-
-        // Disable or re-enable the aprilTag processor at any time.
-        visionPortal.setProcessorEnabled(aprilTag, aprilTagsEnabled);
+        RevHubOrientationOnRobot revHubOrientationOnRobot = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD); //change based on orientation of robot once assembled
+        Robot.getInstance().imu.initialize(new IMU.Parameters(revHubOrientationOnRobot));
 
     }   // end method initAprilTag()
 
     public void update (boolean auton){
-        if(decimation < 1){
-            decimation = 1;
+        YawPitchRollAngles orientation = Robot.getInstance().imu.getRobotYawPitchRollAngles();
+        Robot.getInstance().limelight3A.updateRobotOrientation(orientation.getYaw());
+
+
+        llResult = Robot.getInstance().limelight3A.getLatestResult();
+
+        if(llResult != null && llResult.isValid()){
+            botPose = llResult.getBotpose_MT2();
         }
-        else if (decimation > 5){
-            decimation = 5;
-        }
-        aprilTag.setDecimation(decimation);
-        currentDetections = aprilTag.getDetections();
+
+
     }
 
     @Override
@@ -77,37 +52,18 @@ public class AprilTags extends Subsystem {
 
     @Override
     public void printToTelemetry(Telemetry telemetry) {
-        telemetry.addData("# AprilTags Detected", currentDetections.size());
+        if(llResult !=null && llResult.isValid()){
+            telemetry.addData("Target X", llResult.getTx());
+            telemetry.addData("Target Y", llResult.getTy());
+            telemetry.addData("Target Area", llResult.getTa());
 
-        // Step through the list of detections and display info for each one.
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.metadata != null) {
-                telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
-                telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", filterXDist(detection.ftcPose.x), filterYDist(detection.ftcPose.y), detection.ftcPose.z));
-                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
-                telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
-                telemetry.addData("apriltags size: ", detection.metadata.tagsize);
-            } else {
-                telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
-                telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+            if(botPose !=null){
+                telemetry.addData("BotPose", botPose.toString());
+                telemetry.addData("Heading/Yaw", botPose.getOrientation().getYaw());
             }
-        }   // end for() loop
-
-        // Add "key" information to telemetry
-        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
-        telemetry.addLine("RBE = Range, Bearing & Elevation");
-        telemetry.addData("Decimation: ", decimation);
-
-    }   // end method telemetryAprilTag()
-
-    // Calibration data via physically tested values
-    public double filterYDist(double dist){
-        return dist;
-    }
-
-    public double filterXDist(double dist){
-        return dist;
+        }else{
+            telemetry.addData("Limelight", "No Target Detected");
+        }
     }
 
 }   // end class

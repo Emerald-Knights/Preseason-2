@@ -30,6 +30,11 @@ public class Drive extends EKLinear {
                 }
             }
 
+            //driver 2 controls
+
+            robot.turret.turretRotationInput = driverStation.gamepad2.left_stick_x; //controls the spin
+
+            robot.turret.hoodAngleInput = driverStation.gamepad2.right_stick_y; //controls the angle of the hood
 
             robot.catapult.catapultUpButton=driverStation.gamepad2.right_bumper;
 
@@ -40,6 +45,8 @@ public class Drive extends EKLinear {
             robot.intake.reverseIntake= driverStation.gamepad2.y;
 
             robot.transfer.activeTransfer = driverStation.gamepad2.y;
+
+
 
 
 

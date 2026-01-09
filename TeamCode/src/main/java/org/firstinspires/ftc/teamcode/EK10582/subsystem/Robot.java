@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.EK10582.subsystem;
 
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -25,18 +27,25 @@ public class Robot {
     HardwareMap hardwareMap;
     EKLinear linearOpMode;
 
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, catapult1, catapult2;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, catapult1, catapult2, turretMotor;
 
-    public Servo shooterServo, inServo;
+    public Servo turretServo, inServo, sortServo, hoodAngleServo;
 
     public CRServo transferServo;
-    public WebcamName camera;
-    public AprilTags aprilTags = new AprilTags();
+
+    public Limelight3A limelight3A;
+
+    public IMU imu;
+
+
+
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
+    public AprilTags aprilTags = new AprilTags();
     public MecanumDrive mecanumDrive = new MecanumDrive();
-    public Catapult catapult = new Catapult();
     public Intake intake = new Intake();
     public Transfer transfer = new Transfer();
+    public Turret turret = new Turret();
+    public Catapult catapult = new Catapult();
 
     //Lists of active subsystems and telemetry
     public List<Subsystem> subsystems = Arrays.asList(transfer);
@@ -56,6 +65,8 @@ public class Robot {
         this.hardwareMap = hardwareMap;
         this.linearOpMode = (EKLinear)linearOpMode;
 
+        //motor hardwareMapping
+
 //        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
 //        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
 //        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
@@ -64,15 +75,21 @@ public class Robot {
 
 //        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 //
-//        catapult1 = hardwareMap.get(DcMotorEx.class, "catapult1");
-//        catapult2 = hardwareMap.get(DcMotorEx.class, "catapult2");
+//        turretMotor = hardwareMap.get(DcMotorEx.class, "turretMotor");
 
-
+        //servo hardwareMapping
         transferServo = hardwareMap.get(CRServo.class,"transferServo");
         inServo = hardwareMap.get(Servo.class, "inServo");
+        turretServo = hardwareMap.get(Servo.class, "turretServo");
+        sortServo = hardwareMap.get(Servo.class, "sortServo");
+        hoodAngleServo = hardwareMap.get(Servo.class, "hoodAngleServo");
 
-//
-//        camera = hardwareMap.get(WebcamName.class, "camera");
+
+        //camera hardwareMapping
+        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
+
+        //imu hardwareMapping
+        imu = hardwareMap.get(IMU.class,"imu");
 
 
 

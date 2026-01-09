@@ -5,10 +5,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class SubsystemConstants {
     public static double SPEED = 0.8;
 
-    //catapult shi
-    public enum CatapultStates {
+    //turret shi
+    public enum TurretStates {
+        AUTO, MANUAL;
+    }
+
+    public enum CatapultStates{
         UP, DOWN;
     }
+
     public static double CATAPULT_POWER = 0.8;
 
 
