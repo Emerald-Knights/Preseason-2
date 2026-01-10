@@ -14,12 +14,10 @@ public class TransferOut extends Action {
 
     public void update(){
         if(timer.milliseconds() >= 1500){
-            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
             isComplete = true;
         }
-        else if(timer.milliseconds() >= 0){
-            Robot.getInstance().transferServo.setPower(0);
-
+        else {
+            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
 
         }
     }

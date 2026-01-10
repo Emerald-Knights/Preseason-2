@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 //@Disabled
@@ -13,6 +14,7 @@ public class MotorTester extends LinearOpMode {
         waitForStart();
 
         DcMotorEx motor = hardwareMap.get(DcMotorEx.class, "lt");
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        DcMotorEx motor2 = hardwareMap.get(DcMotorEx.class, "rightShooter");
 
         while(opModeIsActive()) {

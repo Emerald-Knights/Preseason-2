@@ -27,29 +27,28 @@ public class Robot {
     HardwareMap hardwareMap;
     EKLinear linearOpMode;
 
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, catapult1, catapult2, turretMotor;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, launchMotor, spinMotor;
 
-    public Servo turretServo, inServo, sortServo, hoodAngleServo;
+    public Servo inServo, hoodAngleServo;
 
-    public CRServo transferServo;
+    public CRServo sortServo;
 
-    public Limelight3A limelight3A;
+//    public Limelight3A limelight3A;
 
-    public IMU imu;
+//    public IMU imu;
 
 
 
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
-    public AprilTags aprilTags = new AprilTags();
+//    public AprilTags aprilTags = new AprilTags();
+    public Turret turret = new Turret();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public Intake intake = new Intake();
     public Transfer transfer = new Transfer();
-    public Turret turret = new Turret();
-    public Catapult catapult = new Catapult();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(transfer);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(transfer);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, transfer, turret);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, transfer, turret);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -67,46 +66,43 @@ public class Robot {
 
         //motor hardwareMapping
 
-//        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-//        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-//        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-//        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
 
-//        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
-//
-//        turretMotor = hardwareMap.get(DcMotorEx.class, "turretMotor");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+        spinMotor = hardwareMap.get(DcMotorEx.class, "spinMotor");
+        launchMotor = hardwareMap.get(DcMotorEx.class, "launchMotor");
+
+
 
         //servo hardwareMapping
-        transferServo = hardwareMap.get(CRServo.class,"transferServo");
-        inServo = hardwareMap.get(Servo.class, "inServo");
-        turretServo = hardwareMap.get(Servo.class, "turretServo");
-        sortServo = hardwareMap.get(Servo.class, "sortServo");
+        inServo = hardwareMap.get(Servo.class,"inServo");
+        sortServo = hardwareMap.get(CRServo.class, "sortServo");
         hoodAngleServo = hardwareMap.get(Servo.class, "hoodAngleServo");
 
 
         //camera hardwareMapping
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
+//        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
         //imu hardwareMapping
-        imu = hardwareMap.get(IMU.class,"imu");
+//        imu = hardwareMap.get(IMU.class,"imu");
 
 
 
 //////        When the motor power is set to zero it brakes instead of coasting
-//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
-//        catapult1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        catapult2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//
-//
-//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-//        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-//
-//        catapult1.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
+        spinMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         for(Subsystem subsystem : subsystems) {

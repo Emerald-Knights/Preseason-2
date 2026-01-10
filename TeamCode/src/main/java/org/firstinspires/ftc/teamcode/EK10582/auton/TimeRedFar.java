@@ -41,8 +41,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.EK10582.EKLinear;
-import org.firstinspires.ftc.teamcode.EK10582.auton.action.DownCatapult;
-import org.firstinspires.ftc.teamcode.EK10582.auton.action.UpCatapult;
+import org.firstinspires.ftc.teamcode.EK10582.auton.action.Spin;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.Robot;
 import org.firstinspires.ftc.teamcode.EK10582.auton.action.Action;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants;
@@ -113,32 +112,56 @@ public class TimeRedFar extends EKLinear {
             Robot.getInstance().rightBack.setPower(0);
 
             sleep(1000);
-
-            // Step 2:  catapult down
-            Robot.getInstance().catapult1.setPower(-SubsystemConstants.CATAPULT_POWER);
-            Robot.getInstance().catapult2.setPower(-SubsystemConstants.CATAPULT_POWER);
-
-            sleep(1000);
-
-            // Step 3:  catapult up
-            Robot.getInstance().catapult1.setPower(SubsystemConstants.CATAPULT_POWER);
-            Robot.getInstance().catapult2.setPower(SubsystemConstants.CATAPULT_POWER);
-
-            sleep(1000);
+//
+//            // Step 2:  catapult down
+//            Robot.getInstance().transferServo.setPower(1);
+//
+//            sleep(1000);
+//
+//            // Step 3:  catapult up
+//            Robot.getInstance().transferServo.setPower(1);
+//            Robot.getInstance().launchMotor.setPower(0.8);
+//
+//           //
+//            sleep(1000);
+//
+//            Robot.getInstance().sortServo.setPower(1);
+//
+//            sleep(1250);
+//
+//            Robot.getInstance().transferServo.setPower(1);
+//
+//            sleep(1000);
+//            Robot.getInstance().launchMotor.setPower(0.8);
+//            Robot.getInstance().transferServo.setPower(1);
+//
+//            sleep(1000);
+//
+//            Robot.getInstance().sortServo.setPower(1);
+//
+//            sleep(1250);
+//
+//            Robot.getInstance().transferServo.setPower(1);
+//
+//            sleep(1000);
+//            Robot.getInstance().launchMotor.setPower(0.8);
+//            Robot.getInstance().transferServo.setPower(1);
+//
+//            sleep(1000);
 
 
             // Step 4:  go
-//            Robot.getInstance().leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-//            Robot.getInstance().leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-//            Robot.getInstance().rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-//            Robot.getInstance().rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+            Robot.getInstance().leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+            Robot.getInstance().leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+            Robot.getInstance().rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            Robot.getInstance().rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
 
             sleep(1000);
 
-            Robot.getInstance().leftFront.setPower(-SPEED);
+            Robot.getInstance().leftFront.setPower(SPEED);
             Robot.getInstance().leftBack.setPower(SPEED);
             Robot.getInstance().rightFront.setPower(SPEED);
-            Robot.getInstance().rightBack.setPower(-SPEED);
+            Robot.getInstance().rightBack.setPower(SPEED);
 
 
             sleep(1250);

@@ -36,15 +36,18 @@ public class Drive extends EKLinear {
 
             robot.turret.hoodAngleInput = driverStation.gamepad2.right_stick_y; //controls the angle of the hood
 
-            robot.catapult.catapultUpButton=driverStation.gamepad2.right_bumper;
+            robot.turret.sortRight = driverStation.gamepad2.dpad_right;
 
-            robot.catapult.catapultDownButton=driverStation.gamepad2.right_trigger>0.2;
+            robot.turret.sortLeft = driverStation.gamepad2.dpad_left;
+
+            robot.turret.activeLaunch = driverStation.gamepad2.x;
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
 
-            robot.intake.reverseIntake= driverStation.gamepad2.y;
+            robot.intake.reverseIntake= driverStation.gamepad2.b;
 
             robot.transfer.activeTransfer = driverStation.gamepad2.y;
+
 
 
 
