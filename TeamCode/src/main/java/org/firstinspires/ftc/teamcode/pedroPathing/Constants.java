@@ -14,13 +14,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(8.63)
-            .forwardZeroPowerAcceleration(-55.24064269)
+            .forwardZeroPowerAcceleration(-54.29992998)
             .translationalPIDFCoefficients(new PIDFCoefficients(0, 0, 0, 0))
-            .lateralZeroPowerAcceleration(-77.76889601);
+            //.headingPIDFCoefficients(new PIDFCoefficients())
+            //.drivePIDFCoefficients(new PIDFCoefficients())
+            .lateralZeroPowerAcceleration(-101.5747154);
 
 
 
-    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+    public static PathConstraints pathConstraints = new PathConstraints(
+            0.99,
+            100,
+            30,
+            1.5);
+
 
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(0.8) //will change to 0.8
@@ -32,8 +39,8 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .xVelocity(67.45299422)
-            .yVelocity(50.00453258);
+            .xVelocity(60.81964262)
+            .yVelocity(45.14695351);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)
@@ -45,9 +52,9 @@ public class Constants {
     }
 
     public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
-            .forwardTicksToInches(0.00198962)
-            .strafeTicksToInches(-0.00205662666)
-            .turnTicksToInches(0.00190961)
+            .forwardTicksToInches(0.001964593333)
+            .strafeTicksToInches(-0.001973913907)
+            .turnTicksToInches(0.001912528435)
             .leftPodY(6.13)
             .rightPodY(-6.13)
             .strafePodX(-4.86)

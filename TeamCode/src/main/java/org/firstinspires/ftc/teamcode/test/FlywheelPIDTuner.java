@@ -17,8 +17,8 @@ public class FlywheelPIDTuner extends OpMode {
 
     double currentTargetVelocity = highVelocity;
 
-    private double F = 0;
-    private double P = 0;
+    private double F = 0; //24
+    private double P = 0;//200
 
     private double[] stepSizes = {10.0, 1.0, 0.1, 0.001,0.0001};
 

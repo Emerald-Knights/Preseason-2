@@ -15,13 +15,13 @@ public class TransferIn extends Action {
     }
 
     public void update(){
-        if(timer.milliseconds() >= 1500){
-
-            isComplete = true;
-        }
-        else {
-            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
-        }
+//        if(timer.milliseconds() >= 1500){
+//
+//            isComplete = true;
+//        }
+//        else {
+//            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
+//        }
 
     }
 

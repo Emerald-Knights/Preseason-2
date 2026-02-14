@@ -10,9 +10,17 @@ public class SubsystemConstants {
         AUTO, MANUAL;
     }
 
+    //turret launch velocities
+    public static double lowVelocity = 900;
+    public static double highVelocity = 1500;
+
+    //red or blue tracking
+    public enum TrackingGoal{
+        RED, BLUE;
+    }
+
     //change values later
-    public static double TRANSFER_POSITION = 0.4;
-    public static double TRANSFER_REST = 0.8;
+
 
 
 }

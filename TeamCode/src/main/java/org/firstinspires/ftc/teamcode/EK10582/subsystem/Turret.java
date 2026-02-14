@@ -2,24 +2,32 @@ package org.firstinspires.ftc.teamcode.EK10582.subsystem;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+
 public class Turret extends Subsystem{
-        public static double p, i = 0, d=0, f;
+        public static double P=0, I = 0, D=0, F=24;
         public double turretRotationInput;
         public double hoodAngleInput;
-        public boolean sortLeft;
-        public boolean sortRight;
         public boolean activeLaunch;
         public boolean manualOverride;
+        public double turretSpinPower;
         boolean latePress = false;
 
-        double lowerLimit, upperLimit;
-
-        double turretSpinPower;
+        public double targetLaunchVelocity;
         double hoodAngleTargetPos = 0.5;
+
+        private double distance;
+
+        public SubsystemConstants.TrackingGoal currentTargetGoal;
 
         public SubsystemConstants.TurretStates currentState = SubsystemConstants.TurretStates.MANUAL;
 
@@ -29,15 +37,25 @@ public class Turret extends Subsystem{
             manualOverride = false;
             currentState = SubsystemConstants.TurretStates.MANUAL;
             activeLaunch = false;
+            targetLaunchVelocity = SubsystemConstants.highVelocity;
+
+            PIDFCoefficients pidfCoefficients =  new PIDFCoefficients(P,I,D,F);
+            Robot.getInstance().launchMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
+            Robot.getInstance().launchMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+//            Robot.getInstance().limelight3A.pipelineSwitch(8);
+//            Robot.getInstance().limelight3A.start();
 
 
         }
         public void update(boolean isAuton){
+            //motor power
             if(activeLaunch){
-                Robot.getInstance().launchMotor.setPower(1);
+                Robot.getInstance().launchMotor.setVelocity(targetLaunchVelocity);
             }else{
-                Robot.getInstance().launchMotor.setPower(0);
+                Robot.getInstance().launchMotor.setVelocity(0);
             }
+            //manual hood + turret angle adjust
             if(currentState == SubsystemConstants.TurretStates.MANUAL){
                 if(Math.abs(turretRotationInput) > 0.1){
                     turretSpinPower = turretRotationInput*0.5; //can change the increment value
@@ -55,16 +73,6 @@ public class Turret extends Subsystem{
                         hoodAngleTargetPos = 0;
                     }
                 }
-                // Cleaner, more robust version
-                if (sortLeft) {
-                    // Math.signum returns 1.0 for positive, -1.0 for negative
-                    Robot.getInstance().sortServo.setPower(0.7);
-                } else if (sortRight){
-                    Robot.getInstance().sortServo.setPower(-0.7);
-                }else{
-                    Robot.getInstance().sortServo.setPower(0);
-                }
-
             }
             else if(currentState == SubsystemConstants.TurretStates.AUTO){
 
@@ -76,8 +84,8 @@ public class Turret extends Subsystem{
         }
         public void printToTelemetry(Telemetry telemetry){
             telemetry.addData("Turret State", currentState);
-            telemetry.addData("Sort Left", sortLeft);
             telemetry.addData("Launch?", activeLaunch);
+            telemetry.addData("Target Velocity", targetLaunchVelocity);
         }
 
 //        public boolean isTargetVisible(){

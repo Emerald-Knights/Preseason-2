@@ -17,7 +17,7 @@ public class TransferOut extends Action {
             isComplete = true;
         }
         else {
-            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+//            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
 
         }
     }

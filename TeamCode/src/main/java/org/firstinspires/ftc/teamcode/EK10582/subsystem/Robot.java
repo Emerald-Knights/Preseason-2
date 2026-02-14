@@ -33,9 +33,9 @@ public class Robot {
 
     public CRServo sortServo;
 
-//    public Limelight3A limelight3A;
+    public Limelight3A limelight3A;
 
-//    public IMU imu;
+    public IMU imu;
 
 
 
@@ -44,11 +44,10 @@ public class Robot {
     public Turret turret = new Turret();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public Intake intake = new Intake();
-    public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, transfer, turret);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, transfer, turret);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, turret);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, turret);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -79,8 +78,8 @@ public class Robot {
 
 
         //servo hardwareMapping
-        inServo = hardwareMap.get(Servo.class,"inServo");
-        sortServo = hardwareMap.get(CRServo.class, "sortServo");
+//        inServo = hardwareMap.get(Servo.class,"inServo");
+//        sortServo = hardwareMap.get(CRServo.class, "sortServo");
         hoodAngleServo = hardwareMap.get(Servo.class, "hoodAngleServo");
 
 
@@ -88,7 +87,7 @@ public class Robot {
 //        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
         //imu hardwareMapping
-//        imu = hardwareMap.get(IMU.class,"imu");
+        imu = hardwareMap.get(IMU.class,"imu");
 
 
 
@@ -100,6 +99,8 @@ public class Robot {
 
 
         spinMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        launchMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
