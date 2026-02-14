@@ -39,10 +39,12 @@ public class AprilTagLimelightTest extends OpMode {
     public void loop() {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
+
         LLResult llResult = limelight.getLatestResult();
         if (llResult != null && llResult.isValid()) {
             Pose3D botPose = llResult.getBotpose_MT2();
-            telemetry.addData("Calculated Distance", distance);
+            distance = getDistanceFromTags(llResult.getTa());
+            telemetry.addData("Distance", distance);
             telemetry.addData("Target X", llResult.getTx());
             telemetry.addData("Target Y", llResult.getTy());
             telemetry.addData("Target Area", llResult.getTa());
@@ -50,5 +52,12 @@ public class AprilTagLimelightTest extends OpMode {
             telemetry.addData("Heading/Yaw", botPose.getOrientation().getYaw());
         }
 
+    }
+
+    public double getDistanceFromTags(double ta) {
+        double scale = 175.4586;
+        double power = -0.6232984;
+        double distance = scale * Math.pow(ta, power);
+        return distance;
     }
 }
