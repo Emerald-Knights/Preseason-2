@@ -13,7 +13,7 @@ public class ServoTester extends EKLinear {
     public void runOpMode() throws InterruptedException {
         waitForStart();
 
-        Servo inServo = hardwareMap.get(Servo.class, "shooter");
+        Servo shooter = hardwareMap.get(Servo.class, "shooter");
 
         double targetPos1 = 0.5;
 
@@ -28,7 +28,7 @@ public class ServoTester extends EKLinear {
                 targetPos1 = 0;
             }
 
-            inServo.setPosition(targetPos1);
+            shooter.setPosition(targetPos1);
 
             telemetry.addData("claw: ", targetPos1);
             telemetry.update();

@@ -44,10 +44,11 @@ public class Robot {
     public Turret turret = new Turret();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public Intake intake = new Intake();
+    public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, turret);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, turret);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, turret, transfer);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, turret, transfer);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -78,8 +79,8 @@ public class Robot {
 
 
         //servo hardwareMapping
-//        inServo = hardwareMap.get(Servo.class,"inServo");
-//        sortServo = hardwareMap.get(CRServo.class, "sortServo");
+//
+        inServo = hardwareMap.get(Servo.class, "inServo");
         hoodAngleServo = hardwareMap.get(Servo.class, "hoodAngleServo");
 
 

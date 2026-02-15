@@ -43,6 +43,10 @@ public class Drive extends EKLinear {
 
             robot.intake.reverseIntake= driverStation.gamepad2.b;
 
+            robot.transfer.activeTransfer = driverStation.gamepad2.x;
+
+
+
 
 
 

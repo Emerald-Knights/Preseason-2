@@ -14,6 +14,10 @@ public class SubsystemConstants {
     public static double lowVelocity = 900;
     public static double highVelocity = 1500;
 
+    public static double TRANSFER_POSITION = 1;
+
+    public static double TRANSFER_REST = 0.651;
+
     //red or blue tracking
     public enum TrackingGoal{
         RED, BLUE;
