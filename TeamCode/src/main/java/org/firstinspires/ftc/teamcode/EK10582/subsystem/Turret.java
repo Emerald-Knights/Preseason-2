@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class Turret extends Subsystem{
-        public static double P=0, I = 0, D=0, F=24;
+        public static double P=0, I = 0, D=0, F=14;
         public double turretRotationInput;
         public double hoodAngleInput;
         public boolean activeLaunch;
