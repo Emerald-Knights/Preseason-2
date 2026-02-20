@@ -8,6 +8,10 @@ import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants;
 
 public class AutonShoot extends Action {
     ElapsedTime timer = new ElapsedTime();
+    ElapsedTime servoTimer = new ElapsedTime();
+
+    int shootCounter = 0;
+
     public void start(){
         timer.reset();
     }
@@ -15,14 +19,25 @@ public class AutonShoot extends Action {
     public void update(){
         if(timer.milliseconds() >= 2000){
             Robot.getInstance().launchMotor.setPower(0);
-            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
             isComplete = true;
         }
         else if(timer.milliseconds() >= 600){
-            Robot.getInstance().launchMotor.setPower(0.8);
+
+            while(shootCounter < 3){
+                if (servoTimer.milliseconds() >= 1000) {
+                    Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+                    servoTimer.reset();
+                    shootCounter++;
+                }
+                else{
+                    Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
+                }
+            }
+
         }
         else {
-            Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
+            Robot.getInstance().launchMotor.setPower(0.8);
+
         }
     }
 
