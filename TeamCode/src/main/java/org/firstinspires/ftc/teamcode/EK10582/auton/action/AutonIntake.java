@@ -19,10 +19,10 @@ public class AutonIntake extends Action {
         }
         else if(timer.milliseconds() >= 0){
             Robot.getInstance().intakeMotor.setPower(0.8);
-            Robot.getInstance().leftFront.setPower(0.5);
-            Robot.getInstance().leftBack.setPower(0.5);
-            Robot.getInstance().rightBack.setPower(0.5);
-            Robot.getInstance().rightFront.setPower(0.5);
+//            Robot.getInstance().leftFront.setPower(0.5);
+//            Robot.getInstance().leftBack.setPower(0.5);
+//            Robot.getInstance().rightBack.setPower(0.5);
+//            Robot.getInstance().rightFront.setPower(0.5);
 
 
         }
