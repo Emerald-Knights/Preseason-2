@@ -101,7 +101,7 @@ public class Robot {
 
         spinMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        launchMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //launchMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);

@@ -11,16 +11,16 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 public class FlywheelPIDTuner extends OpMode {
     public DcMotorEx flywheelMotor;
 
-    public double highVelocity = 1500;
-
-    public double lowVelocity = 900;
+    public double highVelocity = 2000;
+    public double mediumVelocity = 1500;
+    public double lowVelocity = 1250;
 
     double currentTargetVelocity = highVelocity;
 
     private double F = 0; //24
     private double P = 0;//200
 
-    private double[] stepSizes = {10.0, 1.0, 0.1, 0.001,0.0001};
+    private double[] stepSizes = {10.0, 1.0, 0.1, 0.01, 0.001,0.0001};
 
     int stepIndex = 1;
     @Override
@@ -40,6 +40,9 @@ public class FlywheelPIDTuner extends OpMode {
 
         if(gamepad1.yWasPressed()){
             if(currentTargetVelocity == highVelocity){
+                currentTargetVelocity = mediumVelocity;
+            }
+            else if(currentTargetVelocity == mediumVelocity){
                 currentTargetVelocity = lowVelocity;
             }
             else{
