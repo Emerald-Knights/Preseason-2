@@ -11,8 +11,9 @@ public class SubsystemConstants {
     }
 
     //turret launch velocities
-    public static double lowVelocity = 900;
-    public static double highVelocity = 1500;
+    public static double lowVelocity = 1500;
+    public static double mediumVelocity = 1800;
+    public static double highVelocity = 2000;
 
     public static double TRANSFER_POSITION = 1;
 

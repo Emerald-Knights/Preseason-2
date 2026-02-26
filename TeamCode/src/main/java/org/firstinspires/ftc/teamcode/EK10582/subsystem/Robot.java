@@ -85,7 +85,7 @@ public class Robot {
 
 
         //camera hardwareMapping
-//        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
         //imu hardwareMapping
         imu = hardwareMap.get(IMU.class,"imu");

@@ -55,8 +55,8 @@ public class AprilTagLimelightTest extends OpMode {
     }
 
     public double getDistanceFromTags(double ta) {
-        double scale = 175.4586;
-        double power = -0.6232984;
+        double scale = 176.9951;
+        double power = -0.5621096;
         double distance = scale * Math.pow(ta, power);
         return distance;
     }

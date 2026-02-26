@@ -33,25 +33,14 @@ public class Drive extends EKLinear {
             //driver 2 controls
 
             robot.turret.turretRotationInput = driverStation.gamepad2.left_stick_x; //controls the spin
-
-            robot.turret.hoodAngleInput = driverStation.gamepad2.right_stick_y; //controls the angle of the hood
-
             robot.turret.activeLaunch = driverStation.gamepad2.right_trigger > 0.2; //makes turret fire
-
+            robot.turret.aimAssist = !driverStation.gamepad2.leftBumperWasPressed(); //toggles manual help
 
             robot.intake.activeIntake= driverStation.gamepad2.a;
 
-            robot.intake.reverseIntake= driverStation.gamepad2.b;
+            robot.intake.reverseIntake= driverStation.gamepad2.y;
 
             robot.transfer.activeTransfer = driverStation.gamepad2.x;
-
-
-
-
-
-
-
-
 
 
             telemetry.addData("Reset: ", driverStation.getReset());
