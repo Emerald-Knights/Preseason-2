@@ -41,7 +41,7 @@ public class AutonShoot extends Action {
     @Override
     public void update() {
         // Increased safety timeout to 5s to account for re-warming
-        if (totalTimer.milliseconds() >= 5000) {
+        if (totalTimer.milliseconds() >= 4300 && shootCounter >= MAX_SHOOTS) {
             setInternalState(State.FINISHED);
         }
 
@@ -52,7 +52,7 @@ public class AutonShoot extends Action {
 
         switch (currentState) {
             case WARM_UP:
-                if (stateTimer.milliseconds() >= 1800) {
+                if (stateTimer.milliseconds() >= 1500) {
                     setInternalState(State.FIRE);
                 }
                 break;

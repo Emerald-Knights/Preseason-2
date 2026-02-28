@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonIntake;
 import org.firstinspires.ftc.teamcode.EK10582.auton.action.AutonShoot;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.Robot;
+import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants;
 
 
 //import org.firstinspires.ftc.teamcode.EK10582.auton.action.DownCatapult;
@@ -39,7 +40,7 @@ public class RedClose extends AutonBase {
     private final Pose startPose = new Pose(123,122, Math.toRadians(45));
 
 
-    private final Pose scorePreloadPose = new Pose(112,112,Math.toRadians(45));
+    private final Pose scorePreloadPose = new Pose(99,99,Math.toRadians(45));
 
 
     private final Pose scorePose = new Pose (96,96,Math.toRadians(45));
@@ -48,19 +49,19 @@ public class RedClose extends AutonBase {
     private final Pose collectTopPose = new Pose(98,85,Math.toRadians(0));
 
 
-    private final Pose intakeTop = new Pose(113,85,Math.toRadians(0)); //119 -> 114
+    private final Pose intakeTop = new Pose(119,85,Math.toRadians(0)); //119 -> 114
 
 
-    private final Pose collectMidPose = new Pose(98,60, Math.toRadians(0));
+    private final Pose collectMidPose = new Pose(98,61, Math.toRadians(0));
 
 
-    private final Pose intakeMiddle = new Pose(115,60,Math.toRadians(0));
+    private final Pose intakeMiddle = new Pose(119,61,Math.toRadians(0));
 
 
-    private final Pose collectBottomPose = new Pose(98,36,Math.toRadians(0));
+    private final Pose collectBottomPose = new Pose(98,37,Math.toRadians(0));
 
 
-    private final Pose intakeBottom = new Pose(113,36,Math.toRadians(0));
+    private final Pose intakeBottom = new Pose(113,37,Math.toRadians(0));
 
 
     private final Pose scoreBottomPose = new Pose(80,23,Math.toRadians(55));
@@ -73,9 +74,8 @@ public class RedClose extends AutonBase {
 
 
     private final Pose controlPoint1 = new Pose(55,85, Math.toRadians(0)); //changed from 55,85 for straighter line
-    private final Pose controlPoint2 = new Pose (70, 65, Math.toRadians(0));
+    private final Pose controlPoint2 = new Pose (60, 65, Math.toRadians(0));
     private final Pose controlPoint3 = new Pose(65,45, Math.toRadians(0));
-
 
 
 
@@ -87,7 +87,7 @@ public class RedClose extends AutonBase {
 
     public void buildPaths(){
         scorePreload = new Path(new BezierLine(startPose,scorePreloadPose));
-        scorePreload.setLinearHeadingInterpolation(startPose.getHeading(), scorePreloadPose.getHeading());
+        scorePreload.setConstantHeadingInterpolation(45);
 
 
         alignTop = new Path(new BezierCurve(scorePreloadPose,controlPoint1,collectTopPose));
@@ -98,7 +98,7 @@ public class RedClose extends AutonBase {
         collectTop.setConstantHeadingInterpolation(0);
 
 
-        scoreTop = new Path(new BezierCurve(intakeTop,scorePose));
+        scoreTop = new Path(new BezierCurve(intakeTop,controlPoint1,scorePose));
         scoreTop.setLinearHeadingInterpolation(intakeTop.getHeading(), scorePose.getHeading());
 
 
@@ -110,7 +110,7 @@ public class RedClose extends AutonBase {
         collectMiddle.setConstantHeadingInterpolation(0);
 
 
-        scoreMiddle = new Path(new BezierCurve(intakeMiddle,scorePose));
+        scoreMiddle = new Path(new BezierCurve(intakeMiddle,controlPoint2,scorePose));
         scoreMiddle.setLinearHeadingInterpolation(intakeMiddle.getHeading(), scorePose.getHeading());
 
 
@@ -122,7 +122,7 @@ public class RedClose extends AutonBase {
         collectBottom.setConstantHeadingInterpolation(0);
 
 
-        scoreBottom = new Path(new BezierCurve(intakeBottom,scoreBottomPose));
+        scoreBottom = new Path(new BezierCurve(intakeBottom,controlPoint3,scoreBottomPose));
         scoreBottom.setLinearHeadingInterpolation(intakeBottom.getHeading(), scoreBottomPose.getHeading());
 
 
@@ -176,7 +176,7 @@ public class RedClose extends AutonBase {
                 if(!follower.isBusy()){
                     robot.addAction(new AutonIntake());
                     follower.followPath(collectMiddle);
-                    setPathState(8);
+                    setPathState(21);
                 }
                 break;
             case 8:
@@ -238,25 +238,23 @@ public class RedClose extends AutonBase {
     @Override
     public void runOpMode(){
         isAuton = true;
-
-
         pathTimer = new Timer();
         opmodeTimer = new Timer();
-        opmodeTimer.resetTimer();
 
-
-
-
-        waitForStart();
         follower = createFollower(hardwareMap);
         follower.setStartingPose(startPose);
         buildPaths();
 
-
-        setPathState(0);
-
         Robot.getInstance().limelight3A.pipelineSwitch(8);
         Robot.getInstance().limelight3A.start();
+
+        waitForStart();
+        Robot.getInstance().turret.currentState = SubsystemConstants.TurretStates.AUTO;
+
+        opmodeTimer.resetTimer();
+        setPathState(0);
+
+
 
 
         while (opModeIsActive()) {
@@ -273,7 +271,9 @@ public class RedClose extends AutonBase {
             telemetry.addData("heading", follower.getPose().getHeading());
             telemetry.addData("path completed?", follower.isBusy());
             telemetry.addData("launch velocity", Robot.getInstance().launchMotor.getVelocity());
-            telemetry.addData("limelight result:", robot.limelight3A.getLatestResult());
+            telemetry.addData("target visible?:", robot.turret.detection);
+            telemetry.addData("error", robot.turret.getError());
+            telemetry.addData("locked", robot.turret.isLocked());
             telemetry.update();
         }
     }
