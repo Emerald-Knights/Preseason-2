@@ -13,7 +13,7 @@ public class AutonIntake extends Action {
     }
 
     public void update(){
-        if(timer.milliseconds() >= 2050){
+        if(timer.milliseconds() >= 2150){
             Robot.getInstance().intakeMotor.setPower(0);
             isComplete = true;
         }

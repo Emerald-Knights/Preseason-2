@@ -54,7 +54,7 @@ public class RedClose extends AutonBase {
     private final Pose collectMidPose = new Pose(98,60, Math.toRadians(0));
 
 
-    private final Pose intakeMiddle = new Pose(113,60,Math.toRadians(0));
+    private final Pose intakeMiddle = new Pose(115,60,Math.toRadians(0));
 
 
     private final Pose collectBottomPose = new Pose(98,36,Math.toRadians(0));
