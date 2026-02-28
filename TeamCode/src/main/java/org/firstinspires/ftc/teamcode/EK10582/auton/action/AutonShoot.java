@@ -3,50 +3,119 @@ package org.firstinspires.ftc.teamcode.EK10582.auton.action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.EK10582.auton.action.Action;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.Robot;
 import org.firstinspires.ftc.teamcode.EK10582.subsystem.SubsystemConstants;
 
 public class AutonShoot extends Action {
-    ElapsedTime timer = new ElapsedTime();
-    ElapsedTime servoTimer = new ElapsedTime();
 
-    double P = 0.23;
-    double F = 12.85;
-
-
-    int shootCounter = 0;
-
-    public void start(){
-        timer.reset();
-        PIDFCoefficients pidfCoefficients =  new PIDFCoefficients(P,0,0,F);
-        Robot.getInstance().launchMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
+    private enum State {
+        WARM_UP,        // Initial spin up
+        FIRE,           // Servo UP
+        RESET_SERVO,    // Servo DOWN
+        LOAD_NEXT,      // Intake ON (Bumping next ball)
+        RE_WARM,        // WAIT for flywheel to recover speed after shot/load
+        FINISHED
     }
 
-    public void update(){
+    private State currentState = State.WARM_UP;
+    private final ElapsedTime stateTimer = new ElapsedTime();
+    private final ElapsedTime totalTimer = new ElapsedTime();
 
+    private int shootCounter = 0;
+    private final int MAX_SHOOTS = 3;
 
-        if(timer.milliseconds() >= 5000 || shootCounter < 3){
-            Robot.getInstance().launchMotor.setVelocity(0);
-            isComplete = true;
+    @Override
+    public void start() {
+        totalTimer.reset();
+        shootCounter = 0;
+
+        PIDFCoefficients pidf = new PIDFCoefficients(0.23, 0, 0, 12.85);
+        Robot.getInstance().launchMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidf);
+
+        Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+        Robot.getInstance().intakeMotor.setPower(0);
+
+        setInternalState(State.WARM_UP);
+    }
+
+    @Override
+    public void update() {
+        // Increased safety timeout to 5s to account for re-warming
+        if (totalTimer.milliseconds() >= 5000) {
+            setInternalState(State.FINISHED);
         }
-        else if(timer.milliseconds() >= 600){
-                if (servoTimer.milliseconds() >= 1000) {
-                    Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
-                    servoTimer.reset();
+
+        // Always keep flywheel spinning at target during the action
+        if (currentState != State.FINISHED) {
+            Robot.getInstance().launchMotor.setVelocity(1600);
+        }
+
+        switch (currentState) {
+            case WARM_UP:
+                if (stateTimer.milliseconds() >= 1800) {
+                    setInternalState(State.FIRE);
+                }
+                break;
+
+            case FIRE:
+                Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
+                Robot.getInstance().intakeMotor.setPower(0);
+                if (stateTimer.milliseconds() >= 600) {
+                    setInternalState(State.RESET_SERVO);
+                }
+                break;
+
+            case RESET_SERVO:
+                Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+                if (stateTimer.milliseconds() >= 500) {
                     shootCounter++;
+                    if (shootCounter < MAX_SHOOTS) {
+                        setInternalState(State.LOAD_NEXT);
+                    } else {
+                        setInternalState(State.FINISHED);
+                    }
                 }
-                else{
-                    Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_POSITION);
+                break;
+
+            case LOAD_NEXT:
+                // Run intake slightly longer (700ms) to ensure Ball 3 makes it
+                Robot.getInstance().intakeMotor.setPower(0.9);
+                if (stateTimer.milliseconds() >= 700) {
+                    Robot.getInstance().intakeMotor.setPower(0);
+                    setInternalState(State.RE_WARM);
                 }
+                break;
 
-        }
-        else {
-            Robot.getInstance().launchMotor.setVelocity(SubsystemConstants.mediumVelocity);
+            case RE_WARM:
+                // Crucial: Let the flywheel settle for 400ms after the intake "thump"
+                // and the previous shot's RPM drop.
+                if (stateTimer.milliseconds() >= 400) {
+                    setInternalState(State.FIRE);
+                }
+                break;
 
+            case FINISHED:
+                stopAll();
+                isComplete = true;
+                break;
         }
     }
 
-    public void end(){}
+    private void setInternalState(State newState) {
+        if (currentState != newState) {
+            currentState = newState;
+            stateTimer.reset();
+        }
+    }
+
+    private void stopAll() {
+        Robot.getInstance().launchMotor.setVelocity(0);
+        Robot.getInstance().intakeMotor.setPower(0);
+        Robot.getInstance().inServo.setPosition(SubsystemConstants.TRANSFER_REST);
+    }
+
+    @Override
+    public void end() {
+        stopAll();
+    }
 }

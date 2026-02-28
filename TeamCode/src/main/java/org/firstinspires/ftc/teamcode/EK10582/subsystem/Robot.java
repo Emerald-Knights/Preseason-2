@@ -146,6 +146,17 @@ public class Robot {
         }
         //Cycles through all actions and updates them
 
+        for(int i = 0; i < actions.size(); i++) {
+            actions.get(i).update();
+
+            //if an action is finished, end said action and remove it from the list of things to do
+            if(actions.get(i).isComplete) {
+                actions.get(i).end();
+                actions.remove(i);
+                i--;
+            }
+        }
+
 
         //telemetry
         linearOpMode.allTelemetry.addData("Match Time", linearOpMode.matchTimer.milliseconds());

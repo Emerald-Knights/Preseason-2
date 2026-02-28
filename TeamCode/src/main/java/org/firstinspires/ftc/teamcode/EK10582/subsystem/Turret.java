@@ -38,7 +38,7 @@ public class Turret extends Subsystem{
         public double goalTx = 0;
 
         public boolean locked = false;
-        public double lockInDeg = 0.7;   // enter lock
+        public double lockInDeg = 0.8;   // enter lock
         public double lockOutDeg = 1.2;  // exit lock (must be > lockInDeg)
         public double lastPowerCmd = 0.0;
 
@@ -264,11 +264,13 @@ public class Turret extends Subsystem{
 
 
        //flywheel motor
-        if(activeLaunch){
-            Robot.getInstance().launchMotor.setVelocity(targetLaunchVelocity);
-        }else{
-            Robot.getInstance().launchMotor.setVelocity(0);
+        if (!isAuton) {
+            if(activeLaunch){
+                Robot.getInstance().launchMotor.setVelocity(targetLaunchVelocity);
+            }else{
+                Robot.getInstance().launchMotor.setVelocity(0);
             }
+        }
 
         //manual hood + turret angle adjust
         if(aimAssist){
