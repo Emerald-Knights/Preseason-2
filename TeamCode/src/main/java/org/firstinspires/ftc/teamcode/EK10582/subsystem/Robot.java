@@ -29,9 +29,9 @@ public class Robot {
 
     public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, launchMotor, spinMotor;
 
-    public Servo inServo, hoodAngleServo;
-
-    public CRServo sortServo;
+//    public Servo;
+//
+//    public CRServo;
 
     public Limelight3A limelight3A;
 
@@ -41,14 +41,12 @@ public class Robot {
 
     //Declare subsystems here: Ex. mecanumDrive, collection, slides, sorting, etc.
 //    public AprilTags aprilTags = new AprilTags();
-    public Turret turret = new Turret();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public Intake intake = new Intake();
-    public Transfer transfer = new Transfer();
 
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, turret, transfer);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, turret, transfer);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -73,15 +71,12 @@ public class Robot {
 
 
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
-        spinMotor = hardwareMap.get(DcMotorEx.class, "spinMotor");
-        launchMotor = hardwareMap.get(DcMotorEx.class, "launchMotor");
 
 
 
         //servo hardwareMapping
 //
-        inServo = hardwareMap.get(Servo.class, "inServo");
-        hoodAngleServo = hardwareMap.get(Servo.class, "hoodAngleServo");
+
 
 
         //camera hardwareMapping
@@ -98,8 +93,6 @@ public class Robot {
         rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-
-        spinMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //launchMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
