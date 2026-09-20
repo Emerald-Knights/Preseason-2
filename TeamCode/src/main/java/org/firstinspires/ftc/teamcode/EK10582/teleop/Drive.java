@@ -36,6 +36,7 @@ public class Drive extends EKLinear {
             robot.intake.activeIntake= driverStation.gamepad2.a;
 
             robot.intake.reverseIntake= driverStation.gamepad2.y;
+            robot.launch.activeLaunch = driverStation.gamepad2.b;
 
 
 

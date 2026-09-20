@@ -27,13 +27,13 @@ public class Robot {
     HardwareMap hardwareMap;
     EKLinear linearOpMode;
 
-    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, launchMotor, spinMotor;
+    public DcMotorEx leftFront, leftBack, rightFront, rightBack, intakeMotor, launchMotor;
 
 //    public Servo;
 //
 //    public CRServo;
 
-    public Limelight3A limelight3A;
+//    public Limelight3A limelight3A;
 
     public IMU imu;
 
@@ -44,9 +44,11 @@ public class Robot {
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public Intake intake = new Intake();
 
+    public Launch launch = new Launch();
+
     //Lists of active subsystems and telemetry
-    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake);
-    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake);
+    public List<Subsystem> subsystems = Arrays.asList(mecanumDrive, intake, launch);
+    public List<Subsystem> telemetrySubsystems = Arrays.asList(mecanumDrive, intake, launch);
 
 
     //Creates an arraylist called actions that stores all the actions that are currently being done
@@ -71,6 +73,7 @@ public class Robot {
 
 
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intakeMotor");
+        launchMotor = hardwareMap.get(DcMotorEx.class, "launchMotor");
 
 
 
@@ -80,7 +83,7 @@ public class Robot {
 
 
         //camera hardwareMapping
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
+//        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
         //imu hardwareMapping
         imu = hardwareMap.get(IMU.class,"imu");
