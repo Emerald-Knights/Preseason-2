@@ -2,6 +2,8 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.dairy.foundation/releases/'}
     google() // Needed for androidx
+    maven { url = 'https://maven.brott.dev/' }
+    maven { url = "https://mymaven.bylazar.com/releases" }
 }
 
 dependencies {
@@ -17,4 +19,7 @@ dependencies {
 
     implementation 'com.pedropathing:revhub:3.0.1'
     implementation 'com.pedropathing:tuning:1.0.1'
+
+    implementation "com.acmerobotics.dashboard:dashboard:0.5.0"
+    implementation 'com.bylazar:fullpanels:1.0.6'
 }
